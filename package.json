@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/Rem113/annatel-watch-server/issues"
   },
-  "homepage": "https://github.com/Rem113/annatel-watch-server#readme"
+  "homepage": "https://github.com/Rem113/annatel-watch-server#readme",
+  "dependencies": {
+    "annatel-watch-parser": "^1.0.15"
+  }
 }
