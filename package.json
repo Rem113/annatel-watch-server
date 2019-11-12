@@ -1,0 +1,25 @@
+{
+  "name": "annatel-watch-server",
+  "version": "1.0.0",
+  "description": "Server handling Annatel's watch requests.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rem113/annatel-watch-server.git"
+  },
+  "keywords": [
+    "Annatel",
+    "Watch",
+    "Server"
+  ],
+  "author": "Hillel Saal & Gabriel Elbaz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rem113/annatel-watch-server/issues"
+  },
+  "homepage": "https://github.com/Rem113/annatel-watch-server#readme"
+}
