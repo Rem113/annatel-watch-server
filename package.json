@@ -23,6 +23,9 @@
   },
   "homepage": "https://github.com/Rem113/annatel-watch-server#readme",
   "dependencies": {
-    "annatel-watch-parser": "^1.0.15"
+    "annatel-watch-parser": "^1.0.15",
+    "express": "^4.17.1",
+    "mysql2": "^2.0.0",
+    "sequelize": "^5.21.2"
   }
 }
