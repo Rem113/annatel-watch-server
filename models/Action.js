@@ -19,7 +19,7 @@ const Action = new Schema({
     required: true
   },
   payload: {
-    type: Schema.Types.ObjectId,
+    type: Object,
     default: {}
   }
 });
