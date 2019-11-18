@@ -1,5 +1,5 @@
 const parse = require("annatel-watch-parser");
-const Action = require("./models/Action");
+const Action = require("../database/models/Action");
 
 const handleAction = action => {
   const actionObj = parse(action);
