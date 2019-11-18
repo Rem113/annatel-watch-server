@@ -1,6 +1,6 @@
 const Router = require("express").Router();
 
-const Action = require("../models/Action");
+const Action = require("../../database/models/Action");
 
 Router.get("/", async (req, res) => {
   const actions = await Action.find();
