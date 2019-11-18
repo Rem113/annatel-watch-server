@@ -15,7 +15,7 @@ const respondToAction = (action, socket) => {};
 
 module.exports = socket => {
   socket.on("data", data => {
-    const action = stringToObject(action.toString());
+    const action = stringToObject(data.toString());
 
     commitActionToDB(action);
 
