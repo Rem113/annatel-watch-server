@@ -19,7 +19,7 @@ module.exports = socket => {
 
     commitActionToDB(action);
 
-    if (responseType.includes(actionObj.actionType)) {
+    if (responseType.includes(action.actionType)) {
       respondToAction(action, socket);
     }
   });
