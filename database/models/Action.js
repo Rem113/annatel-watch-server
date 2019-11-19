@@ -21,6 +21,10 @@ const Action = new Schema({
   payload: {
     type: Object,
     default: {}
+  },
+  insertedAt: {
+    type: Date,
+    default: Date()
   }
 });
 
