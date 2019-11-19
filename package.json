@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/Rem113/annatel-watch-server#readme",
   "dependencies": {
-    "annatel-watch-parser": "^1.0.15",
+    "annatel-watch-parser": "^1.1.3",
     "express": "^4.17.1",
     "mongoose": "^5.7.11",
     "socket.io": "^2.3.0"
