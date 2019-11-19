@@ -24,7 +24,7 @@ const Action = new Schema({
   },
   insertedAt: {
     type: Date,
-    default: Date()
+    default: Date.now()
   }
 });
 
