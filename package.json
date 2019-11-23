@@ -25,7 +25,6 @@
   "dependencies": {
     "annatel-watch-parser": "^1.1.3",
     "express": "^4.17.1",
-    "mongoose": "^5.7.11",
-    "socket.io": "^2.3.0"
+    "mongoose": "^5.7.11"
   }
 }
