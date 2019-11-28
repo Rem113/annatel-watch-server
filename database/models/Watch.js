@@ -12,4 +12,4 @@ const Watch = new Schema({
   }
 });
 
-mongoose.model("Watch", Watch, "Watches");
+module.exports = mongoose.model("Watch", Watch, "Watches");
