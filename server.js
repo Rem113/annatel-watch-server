@@ -1,8 +1,13 @@
-// Watch server
-require("./watch/watch");
+const net = require("net");
+const handleRequests = require("./handleRequests");
 
-// Database configuration
-require("./database/mongoose");
+const server = net.createServer();
+const watchPort = 5088;
 
-// REST API routes
-require("./api/api");
+server.listen(watchPort, () =>
+  console.log(`Listening for watch on port ${watchPort}`)
+);
+
+server.on("connection", socket => {
+  handleRequests(socket);
+});
