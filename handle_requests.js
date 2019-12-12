@@ -1,5 +1,5 @@
 const { stringToObject, objectToString } = require("annatel-watch-parser");
-const Action = require("./models/Action");
+const Action = require("./models/action");
 
 const responseType = ["LK"];
 
