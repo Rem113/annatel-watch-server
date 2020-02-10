@@ -4,9 +4,7 @@ const Action = require("./models/action");
 const responseType = ["LK"];
 
 const commitActionToDB = action => {
-  const newAction = new Action({
-    ...action
-  });
+  const newAction = new Action(action);
 
   newAction.save().then(data => console.log(data, " logged to database !"));
 };
