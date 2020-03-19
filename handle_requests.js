@@ -9,7 +9,21 @@ const commitActionToDB = action => {
   newAction.save().then(data => console.log(data, " logged to database !"));
 };
 
-const respondToAction = (action, socket) => {};
+const respondToAction = (action, socket) => {
+  const header = {
+    vendor: action.vendor,
+    watchId: action.watchId,
+    length: action.length,
+    actionType: action.actionType
+  };
+
+  switch (action.actionType) {
+    case "LK":
+      const strRes = objectToString(header);
+      socket.write(strRes);
+      break;
+  }
+};
 
 module.exports = socket => {
   socket.on("data", data => {
