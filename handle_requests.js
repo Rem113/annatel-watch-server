@@ -1,7 +1,37 @@
 const { stringToObject, objectToString } = require("annatel-watch-parser");
 const Action = require("./models/action");
 
-const responseType = ["LK"];
+const responseType = [
+  "LK",
+  "AL",
+  "UPLOAD",
+  "MONITOR",
+  "CENTER",
+  "SLAVE",
+  "PW",
+  "CALL",
+  "SMS",
+  "SOS",
+  "SOS1",
+  "SOS2",
+  "SOS3",
+  "SOSSMS",
+  "UPGRADE",
+  "FACTORY",
+  "LZ",
+  "URL",
+  "LOWBAT",
+  "APN",
+  "ANY",
+  "TS",
+  "VERNO",
+  "RESET",
+  "BT",
+  "WORK",
+  "WORKTIME",
+  "REMOVE",
+  "PULSE"
+];
 
 const commitActionToDB = action => {
   const newAction = new Action(action);
@@ -13,7 +43,7 @@ const respondToAction = (action, socket) => {
   const header = {
     vendor: action.vendor,
     watchId: action.watchId,
-    length: action.length,
+    length: action.actionType.length,
     actionType: action.actionType
   };
 
