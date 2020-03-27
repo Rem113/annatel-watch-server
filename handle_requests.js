@@ -66,7 +66,7 @@ module.exports = socket => {
 
     commitActionToDB(action);
 
-    if (anyResponseType.includes(action.actionType)) 1 = 1;
+    if (anyResponseType.includes(action.actionType)) 1 == 1;
     // Do Nothing
     else if (responseType.includes(action.actionType))
       respondToAction(action, socket, null);
