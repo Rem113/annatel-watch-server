@@ -15,23 +15,24 @@ const responseType = [
   "SOS1",
   "SOS2",
   "SOS3",
-  "SOSSMS",
   "UPGRADE",
   "FACTORY",
   "LZ",
-  "URL",
+  "SOSSMS",
   "LOWBAT",
   "APN",
   "ANY",
-  "TS",
-  "VERNO",
   "RESET",
-  "BT",
-  "WORK",
-  "WORKTIME",
-  "REMOVE",
-  "PULSE"
+  "REMOVE"
 ];
+
+const anyResponseType = ["UD", "UD2", "IP"];
+
+const resetResponseType = ["CR", "BT", "WORK", "WORKTIME", "POWEROFF"];
+
+const differentResponseType = ["WAD", "WG", "URL", "TS", "VERNO", "PULSE"];
+
+// **** FUNCTIONS ***** //
 
 const commitActionToDB = action => {
   const newAction = new Action(action);
@@ -39,7 +40,7 @@ const commitActionToDB = action => {
   newAction.save().then(data => console.log(data, " logged to database !"));
 };
 
-const respondToAction = (action, socket) => {
+const respondToAction = (action, socket, otherType) => {
   const header = {
     vendor: action.vendor,
     watchId: action.watchId,
@@ -47,13 +48,17 @@ const respondToAction = (action, socket) => {
     actionType: action.actionType
   };
 
-  switch (action.actionType) {
-    case "LK":
-      const strRes = objectToString(header);
-      socket.write(strRes);
-      break;
+  // If we're dealing with another response type
+  if (otherType != null) {
+    header.actionType = otherType;
+    header.length = otherType.length;
   }
+
+  const strRes = objectToString(header);
+  socket.write(strRes);
 };
+
+const respondToActionDifferent = (action, socket) => {};
 
 module.exports = socket => {
   socket.on("data", data => {
@@ -61,8 +66,13 @@ module.exports = socket => {
 
     commitActionToDB(action);
 
-    if (responseType.includes(action.actionType)) {
-      respondToAction(action, socket);
-    }
+    if (anyResponseType.includes(action.actionType)) 1 = 1;
+    // Do Nothing
+    else if (responseType.includes(action.actionType))
+      respondToAction(action, socket, null);
+    else if (resetResponseType.includes(action.actionType))
+      respondToAction(action, socket, "RESET");
+    else if (differentResponseType.includes(action.actionType))
+      respondToActionDifferent(action, socket);
   });
 };
