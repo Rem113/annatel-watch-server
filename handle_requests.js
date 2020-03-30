@@ -35,6 +35,25 @@ const differentResponseType = ["WAD", "WG", "URL", "TS", "VERNO", "PULSE"];
 
 // **** FUNCTIONS ***** //
 
+module.exports = socket => {
+  socket.on("data", data => {
+    // Handling Query
+    const action = stringToObject(data.toString());
+
+    commitActionToDB(action);
+
+    // Handling Response
+    if (anyResponseType.includes(action.actionType)) 1 == 1;
+    // Do Anything
+    else if (responseType.includes(action.actionType))
+      respondToAction(action, socket, null);
+    else if (resetResponseType.includes(action.actionType))
+      respondToAction(action, socket, "RESET");
+    else if (differentResponseType.includes(action.actionType))
+      respondToActionDifferent(action, socket);
+  });
+};
+
 const commitActionToDB = action => {
   const newAction = new Action(action);
 
@@ -53,7 +72,7 @@ const respondToAction = async (action, socket, otherType) => {
     actionType: action.actionType
   };
 
-  // If we're dealing with another response type
+  // If the response type is different from the querying one
   if (otherType != null) {
     header.actionType = otherType;
     header.length = otherType.length;
@@ -64,20 +83,3 @@ const respondToAction = async (action, socket, otherType) => {
 };
 
 const respondToActionDifferent = (action, socket) => {};
-
-module.exports = socket => {
-  socket.on("data", data => {
-    const action = stringToObject(data.toString());
-
-    commitActionToDB(action);
-
-    if (anyResponseType.includes(action.actionType)) 1 == 1;
-    // Do Nothing
-    else if (responseType.includes(action.actionType))
-      respondToAction(action, socket, null);
-    else if (resetResponseType.includes(action.actionType))
-      respondToAction(action, socket, "RESET");
-    else if (differentResponseType.includes(action.actionType))
-      respondToActionDifferent(action, socket);
-  });
-};
