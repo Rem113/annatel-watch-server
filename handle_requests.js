@@ -35,12 +35,12 @@ const differentResponseType = ["WAD", "WG", "URL", "TS", "VERNO", "PULSE"];
 
 // **** FUNCTIONS ***** //
 
-const commitActionToDB = action => {
-  let watch = await Watch.find({watchId: action.watchId})
+const commitActionToDB = async action => {
+  let watch = await Watch.find({ watchId: action.watchId });
 
-  if (!watch) watch = await Watch.create({watchId: action.watchId});
+  if (!watch) watch = await Watch.create({ watchId: action.watchId });
 
-  const newAction = new Action({...action, watchId: watch.watchId});
+  const newAction = new Action({ ...action, watchId: watch.watchId });
 
   newAction.save().then(data => console.log(data, " logged to database !"));
 };
