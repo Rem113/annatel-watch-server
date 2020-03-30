@@ -1,5 +1,6 @@
 const { stringToObject, objectToString } = require("annatel-watch-parser");
 const Action = require("./models/action");
+const Watch = require("./models/watch");
 
 const responseType = [
   "LK",
@@ -40,10 +41,14 @@ const commitActionToDB = action => {
   newAction.save().then(data => console.log(data, " logged to database !"));
 };
 
-const respondToAction = (action, socket, otherType) => {
+const respondToAction = async (action, socket, otherType) => {
+  let watch = await Watch.find({ id: action.watchId });
+
+  if (!watch) watch = await Watch.create({ id: action.watchId });
+
   const header = {
     vendor: action.vendor,
-    watchId: action.watchId,
+    watchId: watch._id,
     length: action.actionType.length,
     actionType: action.actionType
   };

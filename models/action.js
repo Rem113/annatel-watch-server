@@ -7,8 +7,8 @@ const Action = new Schema({
     required: true
   },
   watchId: {
-    type: Schema.Types.String,
-    required: true
+    type: Schema.Types.ObjectId,
+    ref: "Watch"
   },
   length: {
     type: Schema.Types.Number,
