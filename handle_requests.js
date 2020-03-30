@@ -38,9 +38,8 @@ const differentResponseType = ["WAD", "WG", "URL", "TS", "VERNO", "PULSE"];
 const commitActionToDB = async action => {
   let watch = await Watch.find({ watchId: action.watchId });
 
-  if (!watch) watch = await Watch.create({ watchId: action.watchId });
-
-  console.log(watch);
+  if (watch.length === 0)
+    watch = await Watch.create({ watchId: action.watchId });
 
   const newAction = new Action({ ...action, watchId: watch._id });
 
