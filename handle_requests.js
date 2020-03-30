@@ -40,7 +40,7 @@ const commitActionToDB = async action => {
 
   if (!watch) watch = await Watch.create({ watchId: action.watchId });
 
-  const newAction = new Action({ ...action, watchId: watch.watchId });
+  const newAction = new Action({ ...action, watchId: watch._id });
 
   newAction.save().then(data => console.log(data, " logged to database !"));
 };
