@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const Watch = new Schema({
-  id: {
+  watchId: {
     type: String,
     required: true
   }

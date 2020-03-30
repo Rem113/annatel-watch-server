@@ -36,19 +36,19 @@ const differentResponseType = ["WAD", "WG", "URL", "TS", "VERNO", "PULSE"];
 // **** FUNCTIONS ***** //
 
 const commitActionToDB = action => {
-  const newAction = new Action(action);
+  let watch = await Watch.find({watchId: action.watchId})
+
+  if (!watch) watch = await Watch.create({watchId: action.watchId});
+
+  const newAction = new Action({...action, watchId: watch.watchId});
 
   newAction.save().then(data => console.log(data, " logged to database !"));
 };
 
 const respondToAction = async (action, socket, otherType) => {
-  let watch = await Watch.find({ id: action.watchId });
-
-  if (!watch) watch = await Watch.create({ id: action.watchId });
-
   const header = {
     vendor: action.vendor,
-    watchId: watch._id,
+    watchId: action.watchId,
     length: action.actionType.length,
     actionType: action.actionType
   };
