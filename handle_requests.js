@@ -1,4 +1,4 @@
-const { stringToObject, objectToString } = require("annatel-watch-parser");
+const { serialize, deserialize } = require("annatel-watch-parser");
 const Action = require("./models/action");
 const Watch = require("./models/watch");
 const respondToActionModule = require("./respond_to_action");
@@ -18,14 +18,14 @@ const respondToAction = async (action, socket) => {
   // const pendingPackets() {...}
 
   const response = respondToActionModule(action);
-  const strRes = objectToString(response);
+  const strRes = serialize(response);
 
   socket.write(strRes);
 };
 
 module.exports = socket => {
   socket.on("data", data => {
-    const action = stringToObject(data.toString());
+    const action = deserialize(data.toString());
 
     commitActionToDB(action);
 
