@@ -1,23 +1,22 @@
 const { serialize, deserialize } = require("annatel-watch-parser");
 const Action = require("./models/action");
 const Watch = require("./models/watch");
-const respondToActionModule = require("./respond_to_action");
+const buildResponse = require("./build_response");
+
+const expectReaction = ["LK", "AL", "WAD", "WG"];
 
 const commitActionToDB = async action => {
-  let watch = await Watch.findOne({ watchId: action.watchId });
+  const watch = await Watch.findOne({ watchId: action.watchId });
 
-  if (!watch) watch = await Watch.create({ watchId: action.watchId });
+  if (!watch) throw "Error";
 
-  const newAction = new Action({ ...action, watchId: watch._id });
-
-  newAction.save().then(data => console.log(data, " logged to database !"));
+  Action.create({ ...action, watchId: watch._id }).then(data =>
+    console.log(data, " logged to database !")
+  );
 };
 
 const respondToAction = async (action, socket) => {
-  // here we check if new packets are not been sent to watch
-  // const pendingPackets() {...}
-
-  const response = respondToActionModule(action);
+  const response = buildResponse(action);
   const strRes = serialize(response);
 
   socket.write(strRes);
@@ -29,6 +28,7 @@ module.exports = socket => {
 
     commitActionToDB(action);
 
-    respondToAction(action, socket);
+    if (expectReaction.includes(action.actionType))
+      respondToAction(action, socket);
   });
 };
