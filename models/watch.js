@@ -3,21 +3,22 @@ const { Schema } = mongoose;
 
 const Watch = new Schema({
   insertedAt: {
+    default: Date.now,
     type: Schema.Types.Date,
-    default: Date.now
   },
   updatedAt: {
+    default: Date.now,
     type: Schema.Types.Date,
-    default: Date.now
   },
   vendor: {
+    required: true,
     type: Schema.Types.String,
-    required: true
   },
   watchId: {
+    required: true,
     type: Schema.Types.String,
-    required: true
-  }
+    unique: true,
+  },
 });
 
 module.exports = mongoose.model("Watch", Watch, "Watches");
