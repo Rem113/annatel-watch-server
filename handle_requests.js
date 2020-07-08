@@ -37,12 +37,10 @@ module.exports = (socket) => {
       type: action.actionType,
       length: action.length,
     })
-      .then((res) => console.log(res))
-      .catch((err) => console.error(err))
 
     if (expectReaction.includes(action.actionType))
       respondToAction(action, socket)
 
-    sendCommands(socket, action.watchId)
+    // sendCommands(socket, action.watchId)
   })
 }
