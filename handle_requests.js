@@ -6,16 +6,6 @@ const buildResponse = require("./build_response")
 
 const expectReaction = ["LK", "AL", "WAD", "WG"]
 
-const commitActionToDB = async (action) => {
-  const watch = await Watch.findOne({ watchId: action.watchId })
-
-  if (!watch) throw "Error"
-
-  Action.create({ ...action, watchId: watch._id }).then((data) =>
-    console.log(data, " logged to database !")
-  )
-}
-
 const respondToAction = async (action, socket) => {
   const response = buildResponse(action)
   const strRes = serialize(response)
@@ -24,7 +14,6 @@ const respondToAction = async (action, socket) => {
 }
 
 const sendCommands = async (socket, watchId) => {
-  console.log(watchId)
   const watch = await Watch.findOne({ _id: watchId })
   const commands = await Command.find({ watchId: watch._id, processed: false })
 
@@ -42,7 +31,15 @@ module.exports = (socket) => {
   socket.on("data", (data) => {
     const action = deserialize(data.toString())
 
-    commitActionToDB(action)
+    await fetch("88.218.220.20:3000/api/watch/message", {
+      method: 'POST',
+      body: JSON.parse({
+        serial: action.serial,
+        vendor: action.vendor,
+        type: action.type,
+        length: action.length
+      })
+    })
 
     if (expectReaction.includes(action.actionType))
       respondToAction(action, socket)
