@@ -24,6 +24,7 @@ const respondToAction = async (action, socket) => {
 }
 
 const sendCommands = async (socket, watchId) => {
+  console.log(watchId)
   const watch = await Watch.findOne({ _id: watchId })
   const commands = await Command.find({ watchId: watch._id, processed: false })
 
