@@ -28,17 +28,17 @@ const sendCommands = async (socket, watchId) => {
 }
 
 module.exports = (socket) => {
-  socket.on("data", (data) => {
+  socket.on("data", async (data) => {
     const action = deserialize(data.toString())
 
     await fetch("88.218.220.20:3000/api/watch/message", {
-      method: 'POST',
+      method: "POST",
       body: JSON.parse({
         serial: action.serial,
         vendor: action.vendor,
         type: action.type,
-        length: action.length
-      })
+        length: action.length,
+      }),
     })
 
     if (expectReaction.includes(action.actionType))
