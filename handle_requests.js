@@ -31,15 +31,12 @@ module.exports = (socket) => {
   socket.on("data", async (data) => {
     const action = deserialize(data.toString())
 
-    Axios.post(
-      "88.218.220.20:3000/api/watch/message",
-      JSON.parse({
-        serial: action.serial,
-        vendor: action.vendor,
-        type: action.type,
-        length: action.length,
-      })
-    )
+    Axios.post("88.218.220.20:3000/api/watch/message", {
+      serial: action.serial,
+      vendor: action.vendor,
+      type: action.type,
+      length: action.length,
+    })
 
     if (expectReaction.includes(action.actionType))
       respondToAction(action, socket)
