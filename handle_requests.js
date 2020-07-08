@@ -36,6 +36,7 @@ module.exports = (socket) => {
       vendor: action.vendor,
       type: action.actionType,
       length: action.length,
+      payload: action.payload,
     })
 
     if (expectReaction.includes(action.actionType))
