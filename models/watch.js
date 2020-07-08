@@ -1,24 +1,51 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
+const mongoose = require("mongoose")
+const { Schema } = mongoose
 
-const Watch = new Schema({
-  insertedAt: {
-    default: Date.now,
-    type: Schema.Types.Date,
+const MessageSchema = new Schema({
+  _id: {
+    required: true,
+    type: String,
   },
-  updatedAt: {
-    default: Date.now,
-    type: Schema.Types.Date,
+  posted_at: {
+    type: Date,
+    required: true,
+  },
+  length: {
+    type: Number,
+    required: true,
+  },
+  type: {
+    type: String,
+    required: true,
+  },
+  payload: {
+    type: Object,
+    default: {},
+  },
+})
+
+const WatchSchema = new Schema({
+  _id: {
+    required: true,
+    type: String,
+  },
+  serial: {
+    required: true,
+    type: String,
   },
   vendor: {
     required: true,
-    type: Schema.Types.String,
+    type: String,
   },
-  watchId: {
-    required: true,
-    type: Schema.Types.String,
-    unique: true,
+  messages: [MessageSchema],
+  inserted_at: {
+    default: Date.now,
+    type: Date,
   },
-});
+  updated_at: {
+    default: Date.now,
+    type: Date,
+  },
+})
 
-module.exports = mongoose.model("Watch", Watch, "Watches");
+module.exports = mongoose.model("Watch", WatchSchema, "Watches")
