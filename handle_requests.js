@@ -13,19 +13,19 @@ const respondToAction = async (action, socket) => {
   socket.write(strRes)
 }
 
-const sendCommands = async (socket, watchId) => {
-  const watch = await Watch.findOne({ _id: watchId })
-  const commands = await Command.find({ watchId: watch._id, processed: false })
+// const sendCommands = async (socket, watchId) => {
+//   const watch = await Watch.findOne({ _id: watchId })
+//   const commands = await Command.find({ watchId: watch._id, processed: false })
 
-  for await (const command of commands) {
-    socket.write(serialize(command.command))
-    command.processed = true
-    command.updatedAt = new Date()
-    command
-      .save()
-      .then((command) => console.log(command + " has been processed"))
-  }
-}
+//   for await (const command of commands) {
+//     socket.write(serialize(command.command))
+//     command.processed = true
+//     command.updatedAt = new Date()
+//     command
+//       .save()
+//       .then((command) => console.log(command + " has been processed"))
+//   }
+// }
 
 module.exports = (socket) => {
   socket.on("data", async (data) => {
