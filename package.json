@@ -24,7 +24,7 @@
   "homepage": "https://github.com/Rem113/annatel-watch-server#readme",
   "dependencies": {
     "annatel-watch-parser": "^2.0.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "mongoose": "^5.9.7"
   }
